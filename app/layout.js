@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./styles/components.scss";
+import 'leaflet/dist/leaflet.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +12,18 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body className={inter.className}>{children}</body>
     </html>
   );
+}
+
+// Ajout de la localisation de la carte sur Azaguié
+export function MapInitialization() {
+  if (typeof window !== 'undefined') {
+    const map = L.map('map-container').setView([5.6333, -4.0833], 13); // Coordonnées d'Azaguié
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+  }MapComponent
 }
