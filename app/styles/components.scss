@@ -9,26 +9,62 @@
 }
 
 .options-form {
-  @apply bg-white p-4 shadow-lg fixed bottom-16 left-0 right-0 z-10 w-full;
+  @apply bg-white p-6 shadow-lg fixed bottom-16 left-0 right-0 z-10 w-full max-w-md mx-auto rounded-t-lg;
 
   h2 {
-    @apply text-lg font-bold mb-4;
+    @apply text-xl font-bold mb-4 text-black;
   }
 
   .form-group {
     @apply mb-4;
 
     label {
-      @apply block mb-2;
+      @apply block mb-2 text-sm font-medium text-gray-700;
     }
 
-    input {
-      @apply w-full border rounded p-2;
+    input[type="text"] {
+      @apply w-full border rounded p-2 text-black bg-white;
+    }
+
+    .radio-group {
+      @apply flex flex-col space-y-2 mt-2;
+
+      label {
+        @apply flex items-center cursor-pointer;
+      }
+
+      input[type="radio"] {
+        @apply mr-2 cursor-pointer;
+      }
+    }
+
+    .checkbox-group {
+      @apply flex flex-col mt-2;
+
+      label {
+        @apply flex items-center cursor-pointer;
+
+        &:first-child {
+          @apply mb-2;
+        }
+      }
+
+      input[type="checkbox"] {
+        @apply mr-2 cursor-pointer;
+      }
+    }
+
+    .azaguie-checkbox {
+      @apply flex items-center cursor-pointer;
+
+      input[type="checkbox"] {
+        @apply mr-2 cursor-pointer;
+      }
     }
   }
 
   button[type="submit"] {
-    @apply bg-blue-500 text-white p-2 rounded w-full;
+    @apply bg-blue-500 text-white p-2 rounded w-full hover:bg-blue-600 transition-colors duration-200;
   }
 }
 
@@ -38,4 +74,13 @@
 
 .expand-collapse-container {
   @apply fixed bottom-4 left-1/2 transform -translate-x-1/2 z-20;
+}
+
+// Ajoutez ceci à la fin du fichier
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  @apply w-full border rounded p-2 text-black bg-white;
 }
