@@ -22,7 +22,7 @@
       @apply block mb-2 text-sm font-medium text-gray-700;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="number"], input[type="password"] {
       @apply w-full border rounded p-2 text-black bg-white;
     }
 
@@ -84,3 +84,83 @@
 .react-datepicker__input-container input {
   @apply w-full border rounded p-2 text-black bg-white;
 }
+
+.app-header {
+  @apply fixed top-0 right-0 z-50 p-4;
+}
+
+.auth-button-container {
+  @apply relative;
+}
+
+.auth-button {
+  @apply bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200;
+}
+
+.auth-popup {
+  @apply fixed right-4 top-16 bg-white rounded shadow-lg p-4 flex flex-col items-center;
+  min-width: 200px;
+}
+
+.auth-popup-large {
+  @apply fixed inset-0 flex items-center justify-center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.register-form {
+  @apply bg-white w-full max-w-md;
+
+  .form-title {
+    @apply text-2xl font-bold text-black text-center mb-6;
+  }
+
+  input {
+    @apply w-full mb-4 p-2 border rounded text-black;
+  }
+
+  .register-button {
+    @apply w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors duration-200;
+  }
+}
+
+.auth-separator {
+  @apply my-2 text-gray-500;
+}
+
+.auth-option {
+  @apply px-4 py-2 text-black hover:bg-gray-100 transition-colors duration-200 w-full text-center;
+}
+
+.register-form-container {
+  @apply relative bg-white p-8 rounded-lg shadow-xl w-full max-w-md;
+}
+
+.close-button {
+  @apply absolute top-2 right-4 text-3xl font-bold text-black hover:text-gray-700 cursor-pointer;
+}
+
+.login-form-container {
+  @apply relative bg-white p-8 rounded-lg shadow-xl w-full max-w-md;
+}
+
+.login-form {
+  @apply bg-white w-full max-w-md;
+
+  .form-title {
+    @apply text-2xl font-bold text-black text-center mb-6;
+  }
+
+  input {
+    @apply w-full mb-4 p-2 border rounded text-black;
+  }
+
+  .forgot-password-button {
+    @apply text-blue-500 hover:text-blue-600 text-sm mb-4 cursor-pointer;
+  }
+
+  .login-button {
+    @apply w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors duration-200;
+  }
+}
+
+// ... autres styles existants ...

@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "./styles/components.scss";
 import "leaflet/dist/leaflet.css";
+import AuthButton from "./components/AuthButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="fr">
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                <header className="app-header">
+                    <AuthButton />
+                </header>
+                {children}
+            </body>
         </html>
     );
 }
