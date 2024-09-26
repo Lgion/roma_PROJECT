@@ -1,6 +1,10 @@
 import { Inter } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs'
 import "./globals.css";
+import Header from "./header"
+import Footer from "./footer"
 import "./styles/components.scss";
+import "./styles/index.scss";
 import 'leaflet/dist/leaflet.css';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,9 +17,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={inter.className}>{children}</body>
+      <body className={inter?.className}>
+        <ClerkProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ClerkProvider>
+      </body>
     </html>
-  );
+  )
 }
 
 // Ajout de la localisation de la carte sur Azaguié
