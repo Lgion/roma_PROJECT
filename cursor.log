@@ -1,0 +1,3 @@
+nohup: les entrées sont ignorées
+MESA-INTEL: warning: Haswell Vulkan support is incomplete
+libva error: /usr/lib/x86_64-linux-gnu/dri/iHD_drv_video.so init failed
