@@ -21,7 +21,7 @@ export default function MapComponent() {
     // Nettoyage
     return () => {
       if (typeof window !== 'undefined') {
-        if (document.getElementById('map-container')._leaflet_id) {
+        if (document.getElementById('map-container')?._leaflet_id) {
           document.getElementById('map-container')._leaflet_id = null;
         }
       }

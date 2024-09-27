@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select } from "@/components/ui/select"
+import { Input } from "@/app/components/shadcn/ui/input"
+import { Label } from "@/app/components/shadcn/ui/label"
+import { Select } from "@/app/components/shadcn/ui/select"
 import LocationStep from './LocationStep'
 import VehicleStep from './VehicleStep'
 import DateTimeStep from './DateTimeStep'
