@@ -1,0 +1,18 @@
+header {
+    div{
+        display: none;
+    }
+    button{
+
+        &.on{
+            &~div{
+                display: block;
+            }
+        }
+    }
+
+}
+footer{
+    display: none;
+}
+

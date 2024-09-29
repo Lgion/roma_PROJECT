@@ -6,7 +6,7 @@ import { Button } from "./button"
 import { Progress } from "./progress"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { Select,SelectTrigger,SelectContent,SelectItem,SelectValue } from "../ui/select"
+import { Select } from "../ui/select"
 // import LocationStep from './LocationStep'
 // import VehicleStep from './VehicleStep'
 // import DateTimeStep from './DateTimeStep'
@@ -50,7 +50,6 @@ export default function BookingFormComponent() {
 
   return (
     (<Card className="w-full max-w-lg mx-auto">
-      {step}
       <CardHeader>
         <CardTitle>Réserver une course</CardTitle>
         <Progress value={(step / 5) * 100} className="w-full" />
@@ -114,14 +113,14 @@ function VehicleStep({ formData, updateFormData }) {
         value={formData.vehicleType}
         onValueChange={(value) => updateFormData({ vehicleType: value })}
       >
-        <SelectTrigger>
-          <SelectValue placeholder="Sélectionnez un type de véhicule" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="standard">Standard</SelectItem>
-          <SelectItem value="premium">Premium</SelectItem>
-          <SelectItem value="van">Van</SelectItem>
-        </SelectContent>
+        <Select.Trigger>
+          <Select.Value placeholder="Sélectionnez un type de véhicule" />
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Item value="standard">Standard</Select.Item>
+          <Select.Item value="premium">Premium</Select.Item>
+          <Select.Item value="van">Van</Select.Item>
+        </Select.Content>
       </Select>
     </div>
   )
@@ -161,14 +160,14 @@ function PaymentStep({ formData, updateFormData }) {
         value={formData.paymentMethod}
         onValueChange={(value) => updateFormData({ paymentMethod: value })}
       >
-        <SelectTrigger>
-          <SelectValue placeholder="Sélectionnez une méthode de paiement" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="card">Carte bancaire</SelectItem>
-          <SelectItem value="paypal">PayPal</SelectItem>
-          <SelectItem value="cash">Espèces</SelectItem>
-        </SelectContent>
+        <Select.Trigger>
+          <Select.Value placeholder="Sélectionnez une méthode de paiement" />
+        </Select.Trigger>
+        <Select.Content>
+          <Select.Item value="card">Carte bancaire</Select.Item>
+          <Select.Item value="paypal">PayPal</Select.Item>
+          <Select.Item value="cash">Espèces</Select.Item>
+        </Select.Content>
       </Select>
     </div>
   )
