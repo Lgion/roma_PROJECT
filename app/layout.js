@@ -6,7 +6,6 @@ import "./globals.css";
 import "./styles/components.scss";
 import "./styles/index.scss";
 import "leaflet/dist/leaflet.css";
-import AuthButton from "./components/AuthButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +18,6 @@ export default function RootLayout({ children }) {
     return (
         <html lang="fr">
             <body className={inter.className}>
-                <header className="app-header">
-                    <AuthButton />
-                </header>
                 <ClerkProvider>
                 <Header />
                 {children}

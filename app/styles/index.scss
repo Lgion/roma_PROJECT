@@ -1,6 +1,6 @@
 header {
     div{
-        display: none;
+        &.cl-rootBox:not(.on){display: none;}
     }
     button{
 

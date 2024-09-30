@@ -1,0 +1,35 @@
+[33mcommit 8783c8c250c0b9c8787a806e0641ad12906b742f[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m, [m[1;32mfeat/MultiStepForm[m[33m)[m
+Author: achicyr <hi.cyril@gmail.com>
+Date:   Sun Sep 29 10:44:34 2024 +0200
+
+    (2)BIT(BRANCH INTEGRATION TASK): feat/loginClerk ET feat/MultiStepForm
+
+[33mcommit f981604d4f8a0fc30751ec0abbeb9173b2f39d13[m[33m ([m[1;31morigin/feat/MultiStepForm[m[33m)[m
+Author: yyayourt <yanisnasri30@gmail.com>
+Date:   Fri Sep 27 11:47:17 2024 +0200
+
+    WIP
+
+[33mcommit d5b6e640cdca4bc60a6f5130a5c0114541daa322[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: yyayourt <yanisnasri30@gmail.com>
+Date:   Thu Sep 26 11:07:46 2024 +0200
+
+    WIP: LOGIN FONCTIONNALITE
+
+[33mcommit 560fcc00e2016ce08ef0d586a614efb6e5821b05[m
+Author: yyayourt <yanisnasri30@gmail.com>
+Date:   Tue Sep 24 12:13:19 2024 +0200
+
+    avancer du formulaire
+
+[33mcommit 52de043cf79d66acbb7ca6e5e304bdab88278cea[m[33m ([m[1;31morigin/feat/testShadcnNewVersion[m[33m, [m[1;32mfeat/testShadcnNewVersion[m[33m)[m
+Author: hhh <h@h.h>
+Date:   Fri Sep 20 06:47:16 2024 +0000
+
+    FIRST COMMIT: 1er testes avec l'IDE cursor, création accueil et ses composants, la map et le bouton show/hide options réalisés
+
+[33mcommit 1e55cc15bc1c5d9c9da6224280ecff51b57ab00c[m[33m ([m[1;31morigin/release[m[33m, [m[1;31morigin/hotfix[m[33m, [m[1;31morigin/features[m[33m, [m[1;32mrelease[m[33m, [m[1;32mhotfix[m[33m, [m[1;32mfeatures[m[33m)[m
+Author: archist <mentor03.archist@gmail.com>
+Date:   Sat Aug 3 11:40:09 2024 +0200
+
+    Initial commit from Create Next App
