@@ -2,12 +2,22 @@
 import React, { useState, useEffect } from "react";
 import LoginForm from "./LoginForm";
 import { authService } from "../services/authService";
+import {
+    // auth,
+    useUser,
+    UserButton,
+    SignIn,
+    SignUp,
+    SignedIn,
+    SignedOut,
+    ClerkLoaded,
+    ClerkLoading
+} from "@clerk/nextjs"
 
 export default function AuthButton() {
     const [isOpen, setIsOpen] = useState(false);
     const [isRegistering, setIsRegistering] = useState(false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
     const [formData, setFormData] = useState({
         nom: "",
         prenom: "",
@@ -16,6 +26,8 @@ export default function AuthButton() {
         motDePasse: "",
         confirmationMotDePasse: "",
     });
+    const { user } = useUser();
+    const [currentUser, setCurrentUser] = useState(user);
 
     useEffect(() => {
         const user = authService.getCurrentUser();
@@ -57,27 +69,37 @@ export default function AuthButton() {
 
     return (
         <div className="auth-button-container">
-            {currentUser ? (
-                <div>
-                    <span>Bonjour, {currentUser.prenom}</span>
-                    <button onClick={handleLogout} className="auth-button">
-                        Déconnexion
-                    </button>
-                </div>
+            {user ? (
+                <UserButton />
             ) : (
+                <>
                 <button onClick={togglePopup} className="auth-button">
-                    Compte
+                    <ClerkLoading>
+                        ...Clerk is loading...
+                        {/* Compte */}
+                    </ClerkLoading>
+                    <ClerkLoaded>
+                        Compte
+                    </ClerkLoaded>
                 </button>
+                </>
             )}
             {isOpen && !currentUser && (
                 <div className={`auth-popup ${isRegistering || isLoggingIn ? "auth-popup-large" : ""}`}>
                     {!isRegistering && !isLoggingIn ? (
                         <>
-                            <button onClick={handleLogin} className="auth-option">
+                            {/* <button onClick={handleLogin} className="auth-option"> */}
+                            <button onClick={e=>{
+                                    document.querySelector(".cl-signIn-root").classList.add("on")
+                                }} className="auth-option"
+                            >
                                 Se connecter
                             </button>
                             <div className="auth-separator">ou</div>
-                            <button onClick={handleRegister} className="auth-option">
+                            <button onClick={e=>{
+                                    document.querySelector(".cl-signUp-root").classList.add("on")
+                                }} className="auth-option"
+                            >
                                 Créer un compte
                             </button>
                         </>
