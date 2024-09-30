@@ -7,19 +7,21 @@ import { Progress } from "./progress"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Select,SelectTrigger,SelectContent,SelectItem,SelectValue } from "../ui/select"
+import { SignedIn, SignInButton, SignedOut, useUser } from "@clerk/nextjs";
+// import { SignInButton } from "../vendors/ClerkBtns";
+
 // import LocationStep from './LocationStep'
 // import MoreCommentStep from './MoreCommentStep'
 // import DateTimeStep from './DateTimeStep'
 // import InfosStep from './PaymentStep'
 // import SendingTypeStep from './SendingTypeStep'
-import { useUser } from "@clerk/nextjs";
 
 const MultistepForm = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
   const { user } = useUser();
 
   useEffect(() => {
-    if (user && currentStep === 0) {
+    if (user && currentStep === 1) {
       // Si l'utilisateur est connecté et que nous sommes à l'étape 0 (infosStep),
       // passons automatiquement à l'étape suivante
       setCurrentStep(1);
@@ -33,6 +35,8 @@ const MultistepForm = () => {
     date: '',
     time: '',
     paymentMethod: '',
+    name: '',
+    phone: '',
   })
 
   const updateFormData = (data) => {
@@ -50,6 +54,11 @@ const MultistepForm = () => {
     } else {
       console.log('Réservation confirmée:', formData)
     }
+  }
+
+  const handleSubmit = () => {
+    // Logique pour soumettre le formulaire complet
+    console.log("Formulaire soumis !")
   }
 
   const renderStep = () => {
@@ -73,34 +82,19 @@ const MultistepForm = () => {
     (<Card className="w-full h-[80vh] max-w-[1000px] mx-auto booking-form-card">
       <CardHeader>
         <CardTitle>Réserver une course</CardTitle>
+      </CardHeader>
+      <CardContent className="h-[calc(100%-100px)] overflow-y-auto">
         <Progress 
           value={(currentStep / totalSteps) * 100} 
           totalSteps={totalSteps} 
           currentStep={currentStep} 
           onPrevious={prevStep} 
           onNext={handleNext}
-          className="mt-4"
+          onSubmit={handleSubmit}
+          className="mb-6"
         />
-      </CardHeader>
-      <CardContent className="h-[calc(100%-100px)] overflow-y-auto">
-        {renderStep()}
-        <div className="flex justify-between mt-6">
-          {currentStep > 1 && (
-            <Button onClick={prevStep} variant="outline">
-              Précédent
-            </Button>
-          )}
-          {currentStep < 5 ? (
-            <Button onClick={nextStep} className="ml-auto">
-              Suivant
-            </Button>
-          ) : (
-            <Button
-              onClick={() => console.log('Réservation confirmée:', formData)}
-              className="ml-auto">
-              Confirmer la réservation
-            </Button>
-          )}
+        <div className="p-6">
+          {renderStep()}
         </div>
       </CardContent>
     </Card>)
@@ -180,25 +174,49 @@ function DateTimeStep({ formData, updateFormData }) {
 }
 
 function InfosStep({ formData, updateFormData }) {
+  const { user, isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      updateFormData({
+        name: user.fullName || '',
+        phone: user.primaryPhoneNumber?.phoneNumber || '',
+      });
+    }
+  }, [isSignedIn, user, updateFormData]);
+
   return (
-    <div>
-      <Label htmlFor="paymentMethod">Méthode de paiement</Label>
-      <Select
-        id="paymentMethod"
-        value={formData.paymentMethod}
-        onValueChange={(value) => updateFormData({ paymentMethod: value })}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Sélectionnez une méthode de paiement" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="card">Carte bancaire</SelectItem>
-          <SelectItem value="paypal">PayPal</SelectItem>
-          <SelectItem value="cash">Espèces</SelectItem>
-        </SelectContent>
-      </Select>
+    <div className="space-y-4">
+      <div>
+        <Label htmlFor="name">Nom</Label>
+        <Input
+          id="name"
+          value={formData.name}
+          onChange={(e) => updateFormData({ name: e.target.value })}
+          placeholder="Entrez votre nom"
+          disabled={isSignedIn}
+        />
+      </div>
+      <div>
+        <Label htmlFor="phone">Numéro de téléphone</Label>
+        <Input
+          id="phone"
+          type="tel"
+          value={formData.phone}
+          onChange={(e) => updateFormData({ phone: e.target.value })}
+          placeholder="Entrez votre numéro de téléphone"
+          disabled={isSignedIn}
+        />
+      </div>
+      <SignedOut>
+        <div className="mt-6">
+          <SignInButton mode="modal">
+            <Button>Se connecter</Button>
+          </SignInButton>
+        </div>
+      </SignedOut>
     </div>
-  )
+  );
 }
 
 function SendingTypeStep({ formData }) {
