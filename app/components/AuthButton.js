@@ -73,20 +73,29 @@ export default function AuthButton() {
                 <UserButton />
             ) : (
                 <>
-                <button onClick={togglePopup} className="auth-button">
-                    <ClerkLoading>
-                        ...Clerk is loading...
-                        {/* Compte */}
-                    </ClerkLoading>
-                    <ClerkLoaded>
-                        Compte
-                    </ClerkLoaded>
-                </button>
+                    {!isOpen ? (
+                        <button onClick={togglePopup} className="auth-button">
+                            <ClerkLoading>
+                                ...Clerk is loading...
+                                {/* Compte */}
+                            </ClerkLoading>
+                            <ClerkLoaded>
+                                Compte
+                            </ClerkLoaded>
+                        </button>
+                    ) : (
+                        <button onClick={e=>{
+                            document.querySelector(".cl-signUp-root").classList.remove("on")
+                            document.querySelector(".cl-signIn-root").classList.remove("on")
+                            setIsOpen(false)
+                        }} className="auth-button">X</button>
+                    )}
                 </>
             )}
             {isOpen && !currentUser && (
                 <div className={`auth-popup ${isRegistering || isLoggingIn ? "auth-popup-large" : ""}`}>
-                    {!isRegistering && !isLoggingIn ? (
+                    {!isRegistering && !isLoggingIn && (
+                    // {!isRegistering && !isLoggingIn ? (
                         <>
                             {/* <button onClick={handleLogin} className="auth-option"> */}
                             <button onClick={e=>{
@@ -103,27 +112,29 @@ export default function AuthButton() {
                                 Créer un compte
                             </button>
                         </>
-                    ) : isRegistering ? (
-                        <div className="register-form-container">
-                            <button onClick={togglePopup} className="close-button">
-                                &times;
-                            </button>
-                            <form onSubmit={handleSubmit} className="register-form">
-                                <h2 className="form-title">Création de compte</h2>
-                                <input type="text" name="nom" placeholder="Nom" onChange={handleInputChange} required />
-                                <input type="text" name="prenom" placeholder="Prénom" onChange={handleInputChange} required />
-                                <input type="number" name="age" placeholder="Âge" onChange={handleInputChange} required />
-                                <input type="text" name="contact" placeholder="Numéro de téléphone ou email" onChange={handleInputChange} required />
-                                <input type="password" name="motDePasse" placeholder="Mot de passe" onChange={handleInputChange} required />
-                                <input type="password" name="confirmationMotDePasse" placeholder="Confirmer le mot de passe" onChange={handleInputChange} required />
-                                <button type="submit" className="register-button">
-                                    S'inscrire
-                                </button>
-                            </form>
-                        </div>
-                    ) : (
-                        <LoginForm onClose={togglePopup} onLogin={setCurrentUser} />
-                    )}
+                    ) 
+                    // ) : isRegistering ? (
+                    //     <div className="register-form-container">
+                    //         <button onClick={togglePopup} className="close-button">
+                    //             &times;
+                    //         </button>
+                    //         <form onSubmit={handleSubmit} className="register-form">
+                    //             <h2 className="form-title">Création de compte</h2>
+                    //             <input type="text" name="nom" placeholder="Nom" onChange={handleInputChange} required />
+                    //             <input type="text" name="prenom" placeholder="Prénom" onChange={handleInputChange} required />
+                    //             <input type="number" name="age" placeholder="Âge" onChange={handleInputChange} required />
+                    //             <input type="text" name="contact" placeholder="Numéro de téléphone ou email" onChange={handleInputChange} required />
+                    //             <input type="password" name="motDePasse" placeholder="Mot de passe" onChange={handleInputChange} required />
+                    //             <input type="password" name="confirmationMotDePasse" placeholder="Confirmer le mot de passe" onChange={handleInputChange} required />
+                    //             <button type="submit" className="register-button">
+                    //                 S'inscrire
+                    //             </button>
+                    //         </form>
+                    //     </div>
+                    // ) : (
+                    //     <LoginForm onClose={togglePopup} onLogin={setCurrentUser} />
+                    // )
+                    }
                 </div>
             )}
         </div>

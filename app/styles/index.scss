@@ -1,6 +1,17 @@
+.posabs{
+    position: absolute;
+    &.right{
+        right: 40%;
+    }
+    &.validate{
+        right: 0;
+    }
+}
+
+
 header {
     div{
-        &.cl-rootBox:not(.on){display: none;}
+        &.cl-rootBox:not(.on):not(.cl-userButton-root){display: none;}
     }
     button{
 
