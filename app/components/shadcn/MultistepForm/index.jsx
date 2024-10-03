@@ -21,22 +21,27 @@ const MultistepForm = () => {
   const { user } = useUser();
 
   useEffect(() => {
+    autoFillMissingData()
+  }, [])
+
+  useEffect(() => {
     if (user && currentStep === 1) {
       // Si l'utilisateur est connecté et que nous sommes à l'étape 0 (infosStep),
       // passons automatiquement à l'étape suivante
-      setCurrentStep(1);
+      setCurrentStep(2);
     }
   }, [user, currentStep]);
 
   const [formData, setFormData] = useState({
     pickup: '',
     dropoff: '',
-    vehicleType: '',
     date: '',
     time: '',
     paymentMethod: '',
     name: '',
     phone: '',
+    price: '',
+    comment: '',
   })
 
   const updateFormData = (data) => {
@@ -55,10 +60,70 @@ const MultistepForm = () => {
       console.log('Réservation confirmée:', formData)
     }
   }
+  const autoFillMissingData = () => {
+    const defaultFormData = {
+      pickup: 'Abidjan',
+      dropoff: 'Marseille',
+      // vehicleType: 'Type de véhicule par défaut',
+      date: '2024-10-02',
+      time: '12:01',
+      paymentMethod: 'Méthode de paiement par défaut',
+      name: 'Nom par défaut',
+      phone: '0707040302',
+      price: 2000,
+      comment: 'Un petit commentaire',
+    };
+
+    // Object.keys(formData).forEach((item, i) => {
+    //   console.log(item);
+    //   console.log(formData[item]);
+    //   if (!formData[item]) {
+    //     updateFormData({[item]: defaultFormData[item]})
+    //   }
+    // })
+
+    const updatedFormData = Object.keys(formData).reduce((acc, key) => {
+      if (!formData[key]) {
+        acc[key] = defaultFormData[key];
+      } else {
+        acc[key] = formData[key];
+      }
+      return acc;
+    }, {});
+
+    setFormData(updatedFormData)
+  }
 
   const handleSubmit = () => {
     // Logique pour soumettre le formulaire complet
     console.log("Formulaire soumis !")
+
+    console.log(formData);
+    const sendDataToAPI = async () => {
+      try {
+        const response = await fetch('/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body:  JSON.stringify(formData),
+        });
+        if (!response.ok) {
+          throw new Error('Erreur lors de l\'envoi du formulaire');
+        }
+        const data = await response.json();
+        console.log('Données envoyées avec succès:', data);
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi du formulaire:', error);
+      }
+    };
+
+    setTimeout(item=>{
+      console.log("2Formulaire soumis sous forme de JSON:", JSON.stringify(formData))
+      sendDataToAPI()
+    },1000)
+
+    console.log("Formulaire soumis sous forme de JSON:", JSON.stringify(formData))
   }
 
   const renderStep = () => {
@@ -93,9 +158,9 @@ const MultistepForm = () => {
           onSubmit={handleSubmit}
           className="mb-6"
         />
-        <div className="p-6">
+        <form className="p-6">
           {renderStep()}
-        </div>
+        </form>
       </CardContent>
     </Card>)
   );
@@ -127,6 +192,19 @@ function LocationStep({ formData, updateFormData }) {
 }
 
 function MoreCommentStep({ formData, updateFormData }) {
+  return (
+    <div>
+      <Label htmlFor="comment">Commentaire</Label>
+      <textarea
+        id="comment"
+        value={formData.comment}
+        onChange={(e) => updateFormData({ comment: e.target.value })}
+        placeholder="Entrez un commentaire pour votre commande"
+      ></textarea>
+    </div>
+  )
+}
+function VehiculeTypeStep({ formData, updateFormData }) {
   return (
     <div>
       <Label htmlFor="vehicleType">Type de véhicule</Label>
@@ -225,7 +303,7 @@ function SendingTypeStep({ formData }) {
       <h3 className="text-lg font-semibold">Récapitulatif de la réservation</h3>
       <p>Point de départ : {formData.pickup}</p>
       <p>Destination : {formData.dropoff}</p>
-      <p>Type de véhicule : {formData.vehicleType}</p>
+      {/* <p>Type de véhicule : {formData.vehicleType}</p> */}
       <p>Date : {formData.date}</p>
       <p>Heure : {formData.time}</p>
       <p>Méthode de paiement : {formData.paymentMethod}</p>

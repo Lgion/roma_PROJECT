@@ -25,7 +25,7 @@ export default function ExpandCollapse() {
             <div className="map-container">
                 <MapComponent onMarkerPlace={handleMarkerPlace} />
             </div>
-            {isExpanded && <OptionsForm coordinates={coordinates} />}
+            {/* {isExpanded && <OptionsForm coordinates={coordinates} />}
             <div className="expand-collapse-container">
                 <button className={isExpanded ? "options-collapse-button" : "options-expand-button"} onClick={toggleExpand}>
                     {isExpanded ? (
@@ -38,7 +38,7 @@ export default function ExpandCollapse() {
                         </svg>
                     )}
                 </button>
-            </div>
+            </div> */}
         </>
     );
 }
