@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+}
+
+model Driver {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String     @unique
+  phone     String
+  license   String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  vehicles  Vehicle[]
+  orders    Order[]
+}
+
+model Vehicle {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  make         String
+  model        String
+  year         Int
+  licensePlate String
+  driver       Driver       @relation(fields: [driverId], references: [id])
+  driverId     String       @db.ObjectId
+  equipments   Equipment[]
+  repairs      Reparation[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Equipment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  type        String
+  serialNumber String?
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId   String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Reparation {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  cost        Float
+  date        DateTime
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId   String   @db.ObjectId
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @db.ObjectId
+  driver      Driver   @relation(fields: [driverId], references: [id])
+  driverId    String   @db.ObjectId
+  pickup      String
+  dropoff     String
+  date        String
+  time        String
+  name        String
+  paymentMethod String
+  phone       String
+  price       Float
+  comment    String
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

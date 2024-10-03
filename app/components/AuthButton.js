@@ -13,11 +13,13 @@ import {
     ClerkLoaded,
     ClerkLoading
 } from "@clerk/nextjs"
+import { useRouter } from 'next/navigation'
 
 export default function AuthButton() {
     const [isOpen, setIsOpen] = useState(false);
     const [isRegistering, setIsRegistering] = useState(false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const router = useRouter()
     const [formData, setFormData] = useState({
         nom: "",
         prenom: "",
@@ -28,6 +30,7 @@ export default function AuthButton() {
     });
     const { user } = useUser();
     const [currentUser, setCurrentUser] = useState(user);
+    const ok = ""
 
     useEffect(() => {
         const user = authService.getCurrentUser();
@@ -67,10 +70,26 @@ export default function AuthButton() {
         setCurrentUser(null);
     };
 
-    return (
+    return (<>
         <div className="auth-button-container">
             {user ? (
-                <UserButton />
+                <div onClick={e=>{
+                    // alert('ok')
+                    setTimeout(()=>{
+                        const tmp_ = document.querySelector(".cl-userButtonPopoverActions")
+                        const btn = tmp_.querySelector("button").cloneNode(true)
+                        console.log(tmp_);
+                        console.log(btn);
+                        btn.className = "btn"
+                        btn.querySelector('span').textContent = "Admin"
+                        btn.onclick = ee => {
+                            router.push('/admin', { scroll: false })
+                        }
+                        tmp_.append(btn)
+                    },1000)
+                }}>
+                    <UserButton />
+                </div>
             ) : (
                 <>
                     {!isOpen ? (
@@ -85,8 +104,8 @@ export default function AuthButton() {
                         </button>
                     ) : (
                         <button onClick={e=>{
-                            document.querySelector(".cl-signUp-root").classList.remove("on")
-                            document.querySelector(".cl-signIn-root").classList.remove("on")
+                            document.querySelector(".cl-signUp-root")?.classList?.remove("on")
+                            document.querySelector(".cl-signIn-root")?.classList?.remove("on")
                             setIsOpen(false)
                         }} className="auth-button">X</button>
                     )}
@@ -99,14 +118,14 @@ export default function AuthButton() {
                         <>
                             {/* <button onClick={handleLogin} className="auth-option"> */}
                             <button onClick={e=>{
-                                    document.querySelector(".cl-signIn-root").classList.add("on")
+                                    document.querySelector(".cl-signIn-root")?.classList?.add("on")
                                 }} className="auth-option"
                             >
                                 Se connecter
                             </button>
                             <div className="auth-separator">ou</div>
                             <button onClick={e=>{
-                                    document.querySelector(".cl-signUp-root").classList.add("on")
+                                    document.querySelector(".cl-signUp-root")?.classList?.add("on")
                                 }} className="auth-option"
                             >
                                 Créer un compte
@@ -138,5 +157,11 @@ export default function AuthButton() {
                 </div>
             )}
         </div>
-    );
+        <ClerkLoaded>
+            <SignedOut>
+                <SignIn />
+                <SignUp />
+            </SignedOut>
+        </ClerkLoaded>
+    </>);
 }
