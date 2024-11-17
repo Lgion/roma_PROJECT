@@ -1,15 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./shadcn/ui/button";
 import MultistepForm from "./shadcn/MultistepForm";
 
 export default function ClientHome() {
     const [isFormOpen, setIsFormOpen] = useState(false);
+    const [isFormValidating, setIsFormValidating] = useState(false);
+    const [didFormsucceded, setDidFormsucceded] = useState(false);
 
     const toggleForm = () => {
         setIsFormOpen(!isFormOpen);
-    };
+    }
+
+    useEffect(()=>{
+        // POUR RETIRER LE MESSAGE D'AJOUT COMMANDE
+        if(didFormsucceded)
+            setTimeout(()=>{
+                setDidFormsucceded(false)
+            }, 5000)
+    }, [didFormsucceded])
 
     return (
         <>
@@ -21,7 +31,15 @@ export default function ClientHome() {
 
             {isFormOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
-                    <MultistepForm />
+                    <MultistepForm {...{setIsFormOpen,setIsFormValidating,setDidFormsucceded}} />
+                    {isFormValidating && (
+                        <div className="spin-loader"></div>
+                    )}
+                </div>
+            )}
+            {didFormsucceded && (
+                <div>
+                    <p>Formulaire soumis avec succès !</p>
                 </div>
             )}
         </>
