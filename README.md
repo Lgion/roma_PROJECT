@@ -1,3 +1,28 @@
+# VIRTUALISATION DES BIENS MOBILIERS
+Ce service permet à chacun possédant un ou des vehicules (immatriculé ou non), de lier leur numéro de série ainsi que qu'une petite collection d'information (son modèle, ses options, ses caractéristique d'actualisation d'état du véhicule, ses informations administratifs entre autre)
+
+
+
+
+
+
+
+
+
+
+---
+---
+---
+---
+
+
+
+
+
+
+
+
+
 # TRAVAIL RÉALISÉ
 ## MAP EN FONT: 
 ### SOLUTION ADOPTÉE: LEAFLET
